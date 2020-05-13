@@ -11,6 +11,8 @@ import numpy as np
 import matplotlib.pyplot as plt; plt.style.use('ggplot')
 import matplotlib.ticker as mtick
 
+# Munge SGLBL
+
 sglbl = pd.read_csv('RawData\\old_sglbl.csv')
 
 for col in sglbl.columns:
@@ -29,24 +31,27 @@ sglbl['month'] = pd.DatetimeIndex(sglbl["date"]).strftime('%Y-%m')
 sglbl.set_index('date', inplace=True)
 sglbl.isna().sum()  # lots of NA in Medium
 sglbl['medium'].fillna('Other', inplace=True)
-
 sglbl.to_csv('AmendedData\\sglbl.csv')
 
-ukgfr = sglbl[sglbl['sorp'].str.contains('P6269')]
+# Why is email so high for UKGFR? Investigate using creative
 
-nonsmall = ukgfr.pivot_table(values='value', index='medium',
+# Make GFR and non-GFR DFs
+
+sglbl['ukgfr'] = sglbl['sorp'].str.contains('P6269')
+
+nonsmall = sglbl.pivot_table(values='value', index='medium',
                              aggfunc=np.count_nonzero)
 nonsmall = nonsmall[nonsmall['value'] > 50].index
 
-ukgfr_nonsmall = ukgfr[ukgfr['medium'].isin(nonsmall)]
-ukgfr_nonsmall = ukgfr_nonsmall[ukgfr_nonsmall['value'] < 100]
+sg_nonsmall = sglbl[sglbl['medium'].isin(nonsmall)]
+sg_nonsmall = sg_nonsmall[sg_nonsmall['value'] < 100]
 
-nonuk_nonsmall = sglbl[~sglbl['sorp'].str.contains('P6269')]
-nonuk_nonsmall = nonuk_nonsmall[nonuk_nonsmall['medium'].isin(nonsmall)]
-nonuk_nonsmall = nonuk_nonsmall[nonuk_nonsmall['value'] < 100]
+ukgfr_nonsmall = sg_nonsmall[sg_nonsmall['ukgfr'] == True]
+nonuk_nonsmall = sg_nonsmall[sg_nonsmall['ukgfr'] == False]
 
-
-#Plot distribution
+# =============================================================================
+# Two-facet plot of UK GFR gift distribution, vs not
+# =============================================================================
 
 fig, axs = plt.subplots(1, 2, figsize=(14, 7), sharey=True)
 
@@ -69,3 +74,21 @@ axs[1].grid(b=True, which='minor', color='w', axis='x', linewidth=1.0)
 axs[1].set_title('Non-UK GFR gifts', fontsize=20)
 axs[1].set_xlim((0, 100))
 plt.savefig('Outputs\\2020_gift_values_by_channel.png')
+
+# =============================================================================
+# One facet version, 
+# =============================================================================
+
+colors = ["#1d1a1c", "#04923e"]
+sns.set_palette(sns.color_palette(colors))
+
+fig, ax = plt.subplots(1, 1, figsize=(14, 7))
+sns.violinplot(x='value', y='medium', hue='ukgfr', split=True,
+               data=sg_nonsmall, ax=ax, order=nonsmall, cut=0)
+currfmt = mtick.StrMethodFormatter('£{x:,.0f}')
+ax.xaxis.set_major_formatter(currfmt)
+ax.get_xaxis().set_minor_locator(mtick.AutoMinorLocator())
+ax.grid(b=True, which='minor', color='w', axis='x', linewidth=1.0)
+ax.set_title('2020 gifts by medium', fontsize=20)
+ax.set_xlim((0, 100))
+plt.savefig('Outputs\\2020_gift_values_by_channel_split.png')
