@@ -82,13 +82,78 @@ plt.savefig('Outputs\\2020_gift_values_by_channel.png')
 colors = ["#1d1a1c", "#04923e"]
 sns.set_palette(sns.color_palette(colors))
 
-fig, ax = plt.subplots(1, 1, figsize=(14, 7))
+fig, ax = plt.subplots(1, 1, figsize=(7, 7))
 sns.violinplot(x='value', y='medium', hue='ukgfr', split=True,
                data=sg_nonsmall, ax=ax, order=nonsmall, cut=0)
-currfmt = mtick.StrMethodFormatter('£{x:,.0f}')
 ax.xaxis.set_major_formatter(currfmt)
 ax.get_xaxis().set_minor_locator(mtick.AutoMinorLocator())
 ax.grid(b=True, which='minor', color='w', axis='x', linewidth=1.0)
 ax.set_title('2020 gifts by medium', fontsize=20)
 ax.set_xlim((0, 100))
+handles, labels = fig.get_axes()[0].get_legend_handles_labels()
+fig.get_axes()[0].legend([handles[0], handles[1]], ["Non UK fund", "UK fund"])
 plt.savefig('Outputs\\2020_gift_values_by_channel_split.png')
+
+# =============================================================================
+# One facet version for just email
+# =============================================================================
+
+sg_email_nonsmall = sglbl[sglbl['medium'] == 'Email']
+sg_email_nonsmall = sg_email_nonsmall[sg_email_nonsmall['value'] < 100]
+sg_email_nonsmall = sg_email_nonsmall[sg_email_nonsmall['creative'].str.startswith('Donate', na=False)]
+
+sg_email_creative = sg_email_nonsmall['creative'].str.split('_',
+                                     expand=True).loc[:, '0':'1']
+sg_email_creative.drop(0, axis=1, inplace=True)
+sg_email_creative.columns = ['sendnum']
+sg_email_nonsmall['sendnum'] = sg_email_creative['sendnum'].values
+
+sendnumlist = sg_email_nonsmall['sendnum'].value_counts()
+sendnumlist = sendnumlist[sendnumlist > 100]
+sendnumlist = sendnumlist.index
+
+sg_email_nonsmall = sg_email_nonsmall[sg_email_nonsmall['sendnum'].isin(sendnumlist)]
+
+figem, axem = plt.subplots(1, 1, figsize=(14, 7))
+sns.violinplot(x='value', y='sendnum', hue='ukgfr', split=True,
+               data=sg_email_nonsmall, ax=axem, cut=0)
+ax.xaxis.set_major_formatter(currfmt)
+ax.get_xaxis().set_minor_locator(mtick.AutoMinorLocator())
+ax.grid(b=True, which='minor', color='w', axis='x', linewidth=1.0)
+ax.set_title('2020 gifts by send number', fontsize=20)
+ax.set_xlim((0, 100))
+plt.savefig('Outputs\\2020_gift_values_by_email_sendnum_split.png')
+
+sg_email_nonsmall_ukgfr = sg_email_nonsmall[sg_email_nonsmall['ukgfr'] == True]
+
+ukgfr_sendnums = sg_email_nonsmall_ukgfr['sendnum'].value_counts().index
+
+fignum, axnum = plt.subplots(1, 2, figsize=(10, 5), sharey=True)
+for i, send in enumerate(ukgfr_sendnums):
+    df = sg_email_nonsmall_ukgfr
+    df = df[df['sendnum'] == send]
+    df.plot.hist(ax=axnum[i], bins=range(0, 100, 5), color='#ee2a24')
+    axnum[i].set_title(send)
+plt.suptitle('Gift values for UK GFR emails', fontsize=20)
+plt.savefig('Outputs\\UKGFR_gift_values_by_sendnum_split.png')
+
+# =============================================================================
+# Comparison cpc
+# =============================================================================
+
+indo_cpc_nonsmall = pd.read_csv('AmendedData\\2018-10_Indonesia_cpc_gifts.csv')
+
+fig, ax = plt.subplots(1, 1)
+sns.violinplot(x='Revenue', data=indo_cpc_nonsmall, cut=0, ax=ax)
+ax.xaxis.set_major_formatter(currfmt)
+ax.get_xaxis().set_minor_locator(mtick.AutoMinorLocator())
+ax.grid(b=True, which='minor', color='w', axis='x', linewidth=1.0)
+ax.set_title('2018-10 cpc gift values (during Indonesia)')
+ax.set_xlim((0, 100))
+plt.savefig('Outputs\\Indonesia_gift_values_cpc.png')
+
+# =============================================================================
+# For t-test trial
+# =============================================================================
+
+sg_nonsmall[sg_nonsmall['medium'] == 'cpc'].to_csv('AmendedData\\cpclbl.csv')
