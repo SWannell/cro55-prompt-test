@@ -25,8 +25,8 @@ One main difference between the t- and z- approach to group sequential design, i
 
 ### References
 
-[1] [Defazio, 2016](https://www.aarondefazio.com/adefazio-seqtesting.pdf)
-[2] [NCSS Statistical Software manual, Group-Sequential T-Tests for Two Means](https://ncss-wpengine.netdna-ssl.com/wp-content/themes/ncss/pdf/Procedures/NCSS/Group-Sequential_T-Tests_for_Two_Means.pdf)
-[3] [Koopmeiners, Sequential Analysis](http://www.biostat.umn.edu/~josephk/courses/pubh8482_fall2012/lecture_notes/pubh8482_week6.pdf)
+1. [Defazio, 2016](https://www.aarondefazio.com/adefazio-seqtesting.pdf)
+2. [NCSS Statistical Software manual, Group-Sequential T-Tests for Two Means](https://ncss-wpengine.netdna-ssl.com/wp-content/themes/ncss/pdf/Procedures/NCSS/Group-Sequential_T-Tests_for_Two_Means.pdf)
+3. [Koopmeiners, Sequential Analysis](http://www.biostat.umn.edu/~josephk/courses/pubh8482_fall2012/lecture_notes/pubh8482_week6.pdf)
 
 Inline LaTeX made using [this tool](https://alexanderrodin.com/github-latex-markdown/)
