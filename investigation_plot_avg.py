@@ -157,3 +157,22 @@ plt.savefig('Outputs\\Indonesia_gift_values_cpc.png')
 # =============================================================================
 
 sg_nonsmall[sg_nonsmall['medium'] == 'cpc'].to_csv('AmendedData\\cpclbl.csv')
+
+# =============================================================================
+# For Rach's Q about ppc median gift
+# =============================================================================
+
+ukgfr_cpc = sglbl[(sglbl['medium']=='cpc') & (sglbl['ukgfr']==True)]
+
+ukgfr_cpc.describe()
+
+figcpc, axcpc = plt.subplots(1, 1, figsize=(8, 5))
+ukgfr_cpc['value'].hist(bins=list(range(0, 100, 5)) + [100, 10000],
+         color='#ee2a24', ax=axcpc, edgecolor='gray', linewidth=1)
+axcpc.set_xlim((0, 200))
+ukgfr_cpc_max = ukgfr_cpc['value'].max()
+cpc_annot = "This bin is all gifts from £100-£{:,.0f}".format(ukgfr_cpc_max)
+axcpc.annotate(cpc_annot, (100, 170))
+axcpc.set_title('Gift values for UK GFR paid search')
+axcpc.xaxis.set_major_formatter(currfmt)
+plt.savefig('Outputs\\ukgfr_gift_values_cpc.png')
