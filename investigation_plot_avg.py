@@ -162,17 +162,22 @@ sg_nonsmall[sg_nonsmall['medium'] == 'cpc'].to_csv('AmendedData\\cpclbl.csv')
 # For Rach's Q about ppc median gift
 # =============================================================================
 
-ukgfr_cpc = sglbl[(sglbl['medium']=='cpc') & (sglbl['ukgfr']==True)]
+# segment = 'cpc'
+# segment = 'Email'
+segment = 'Social Ad'
 
-ukgfr_cpc.describe()
+ukgfr_segment = sglbl[(sglbl['medium']==segment) & (sglbl['ukgfr']==True)]
 
-figcpc, axcpc = plt.subplots(1, 1, figsize=(8, 5))
-ukgfr_cpc['value'].hist(bins=list(range(0, 100, 5)) + [100, 10000],
-         color='#ee2a24', ax=axcpc, edgecolor='gray', linewidth=1)
-axcpc.set_xlim((0, 200))
-ukgfr_cpc_max = ukgfr_cpc['value'].max()
-cpc_annot = "This bin is all gifts from £100-£{:,.0f}".format(ukgfr_cpc_max)
-axcpc.annotate(cpc_annot, (100, 170))
-axcpc.set_title('Gift values for UK GFR paid search')
-axcpc.xaxis.set_major_formatter(currfmt)
-plt.savefig('Outputs\\ukgfr_gift_values_cpc.png')
+ukgfr_segment.describe()
+
+figseg, axseg = plt.subplots(1, 1, figsize=(8, 5))
+ukgfr_segment['value'].hist(bins=list(range(0, 100, 5)) + [100, 10000],
+         color='#ee2a24', ax=axseg, edgecolor='gray', linewidth=1)
+axseg.set_xlim((0, 200))
+ukgfr_segment_max = ukgfr_segment['value'].max()
+seg_annot = "This bin is gifts from £100-£{:,.0f}".format(ukgfr_segment_max)
+axseg.annotate(seg_annot, (100, 170))
+axseg.set_title('Gift values for UK GFR {}'.format(segment))
+axseg.xaxis.set_major_formatter(currfmt)
+seg_strip = "".join(segment.split(" "))
+plt.savefig('Outputs\\ukgfr_gift_values_{}.png'.format(seg_strip))
