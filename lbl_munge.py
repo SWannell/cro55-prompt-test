@@ -16,11 +16,13 @@ fp = '{}\\sglbl.csv'
 
 sglbl_raw_fp = fp.format('RawData')
 sglbl = pd.read_csv(sglbl_raw_fp)
-sglbl = sglbl[['Payment_reference', 'Response_Value', 'Email_Opt_In',
+sglbl = sglbl[['Response_Date', 'Payment_reference', 'Response_Value',
+               'Email_Opt_In',
                'Gift_Aid_Declaration', 'Appeal_Name', 'Platform',
                'Campaign_Approach_Code', 'Campaign', 'Source', 'Medium',
                'Creative', 'Audience_ad_group']]
-sglbl.columns = ['id', 'value', 'optin', 'giftaid', 'appeal', 'platform',
+sglbl.columns = ['date', 'id', 'value', 'optin', 'giftaid', 'appeal',
+                 'platform',
                  'sourcecode', 'campaign', 'source', 'medium', 'creative',
                  'audience']
 sglbl = sglbl.set_index('id')
