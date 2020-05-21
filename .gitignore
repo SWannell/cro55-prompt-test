@@ -1,3 +1,9 @@
+# Data
+RawData/GA*
+AmendedData/GA*
+AmendedData/Contingency*
+AmendedData/*.pkl
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

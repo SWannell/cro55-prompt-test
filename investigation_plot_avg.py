@@ -83,7 +83,7 @@ colors = ["#1d1a1c", "#04923e"]
 sns.set_palette(sns.color_palette(colors))
 
 fig, ax = plt.subplots(1, 1, figsize=(7, 7))
-sns.violinplot(x='value', y='medium', hue='ukgfr', split=True,
+sns.violinplot(x='value', y='medium', hue='ukgfr', split=True, scale='count',
                data=sg_nonsmall, ax=ax, order=nonsmall, cut=0)
 ax.xaxis.set_major_formatter(currfmt)
 ax.get_xaxis().set_minor_locator(mtick.AutoMinorLocator())
