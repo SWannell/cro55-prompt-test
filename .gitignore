@@ -1,6 +1,7 @@
 # Data
 RawData/GA*
 AmendedData/GA*
+AmendedData/LBL*
 AmendedData/Contingency*
 AmendedData/*.pkl
 

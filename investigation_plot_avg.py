@@ -31,7 +31,7 @@ sglbl['month'] = pd.DatetimeIndex(sglbl["date"]).strftime('%Y-%m')
 sglbl.set_index('date', inplace=True)
 sglbl.isna().sum()  # lots of NA in Medium
 sglbl['medium'].fillna('Other', inplace=True)
-sglbl.to_csv('AmendedData\\sglbl.csv')
+sglbl.to_csv('AmendedData\\old_sglbl.csv')
 
 # Why is email so high for UKGFR? Investigate using creative
 
