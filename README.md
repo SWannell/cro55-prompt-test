@@ -6,6 +6,15 @@ Contains:
 - A script to run the alpha spending function approach for test monitoring for t-tests.
 - Two different MDE approaches for t-tests (ttest_MDE based on iterating the mean, ttest_MDE_model based on iterating on the gift distribution)
 
+### How to check test progress
+
+1. Get the LBL data from the web reporting database
+2. _lbl_munge.py_: change path for the new LBL CSV if needed, run
+3. _FetchData.py__: run, with GA access token
+4. _lbl_ga_join.py_: change end date, run
+5. _DoSeqAnalysis.py_ for the conversion % check
+6. _seq_analysis_ttest.py_ for the average gift check
+
 ### t-test alpha spending function
 
 One approach is to calculate a z-score directly from the data (cf. [1]).

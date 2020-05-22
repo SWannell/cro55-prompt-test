@@ -80,8 +80,10 @@ t_score['t'] = t_num / t_denom
 
 t_score['q'] = 1 / (t_denom1 + t_denom2)
 
+t_score.dropna(inplace=True)  # in case first row is NA from not enough gifts
+
 # plot against boundaries
-axt.plot(t_score['q'], t_score['t'], color='#000000')
+axt.plot(t_score['q'], t_score['t'], color='#000000', marker='o')
 plt.title('CRO55 raised prompt test', fontsize=16)
 plt.xlabel('% recruited')
 plt.ylabel('t-score')

@@ -8,7 +8,7 @@ Created on Tue Mar  3 15:21:45 2020
 import pandas as pd
 
 start_date = '20200520'
-end_date = '20200520'  # would be grab start/end dates from a log file?
+end_date = '20200521'  # would be grab start/end dates from a log file?
 
 # Set file paths
 trans_fp = 'AmendedData\\GADataTrans{}-{}.csv'.format(start_date, end_date)
@@ -30,6 +30,11 @@ df_sg = sglbl.join(trans)
 print('Transactions in SGLBL: {}'.format(len(df_sg)))
 df_sg = df_sg.dropna(subset=['cell'])
 print('Transactions in SGLBL and test: {}'.format(len(df_sg)))
+
+num_rgs = len(trans[trans.index.str.startswith('IDD')])
+
+assert len(df_sg) + num_rgs == len(trans)
+
 # RG merge
 #df_rg = rglbl.join(trans)
 #print('Transactions in RGLBL: {}'.format(len(df_rg)))
