@@ -47,7 +47,7 @@ class SeqAnalysis:
         graph_fp : string
             Destination file path of the boundary graph with z_score line.
         """
-        self.figbdr, self.axbdr = plt.subplots(1, 1, figsize=(10, 10))
+        self.figbdr, self.axbdr = plt.subplots(1, 1, figsize=(7, 7))
         self.q = np.linspace(0.06, 1, 30)  # information quotient
         self.z_score = self.z_score(target, data_fp)
         self.bdry_plot(alpha, beta)
@@ -126,16 +126,17 @@ class SeqAnalysis:
         """
         Plots the z-score boundary lines, with appropriate shading. Saves it.
         """
-        titledict = {'fontsize': 16, 'fontweight': 'bold'}
+        titledict = {'fontsize': 16}
         self.axbdr.plot(self.z_score['q'], self.z_score['z'],
-                        color='#000000', marker='.')
+                        color='#000000', marker='o')
         self.axbdr.set_title(ttl, fontdict=titledict)
         self.axbdr.set_xlabel('% recruited')
         self.axbdr.set_ylabel('z-score')
         self.axbdr.xaxis.set_major_formatter(mtick.PercentFormatter(xmax=1))
-        test_descrip = "Lan-DeMets spending function, O’Brien-Fleming type \
-                        boundaries"
-        self.figbdr.text(0, 0, test_descrip, color='gray', fontsize=10)
+        descrip = "Lan-DeMets spending function, O’Brien-Fleming type boundary"
+        self.figbdr.text(0, 0, descrip, color='gray', fontsize=10)
+        self.axbdr.set_ylim((-8, 8))
+        self.axbdr.set_xlim((0, 1))
         plt.tight_layout()
         ldm_fp = graph_fp.format(str(target))
         plt.savefig(ldm_fp, bbox_inches="tight")

@@ -8,7 +8,7 @@ Created on Tue Mar  3 15:21:45 2020
 import pandas as pd
 
 start_date = '20200520'
-end_date = '20200525'  # would be grab start/end dates from a log file?
+end_date = '20200526'  # would be grab start/end dates from a log file?
 
 # Set file paths
 trans_fp = 'AmendedData\\GADataTrans{}-{}.csv'.format(start_date, end_date)
@@ -42,7 +42,7 @@ assert len(df_sg) + num_rgs == len(trans)
 #print('Transactions in RGLBL and test: {}'.format(len(df_rg)))
 
 # Final LBL
-#lbl = df_sg.append(df_rg)
+# lbl = df_sg.append(df_rg)
 lbl = df_sg
 lbl.to_csv('AmendedData\\LBL.csv')
 

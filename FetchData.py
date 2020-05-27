@@ -12,6 +12,7 @@ import GAAccess as ga
 # =============================================================================
 # Define metadata
 # =============================================================================
+
 metrics = ["ga:users"]
 dimensions = ["ga:experimentCombination", "ga:date"]
 ga_cols = ['cell', 'date', 'count']
@@ -108,22 +109,38 @@ for cell, cumu_dat in res.items():
 # Extract GA transaction data, format
 # =============================================================================
 
-trans_metrics = ["ga:uniquePurchases"]
-trans_dimensions = ["ga:experimentCombination", "ga:transactionId"]
-trans_ga_cols = ['cell', 'id', 'count']
+#trans_metrics = ["ga:uniquePurchases"]
+#trans_dimensions = ["ga:experimentCombination", "ga:transactionId"]
+#trans_ga_cols = ['cell', 'id', 'count']
+#
+#trans = ga.get_data(gaid=gaid, metrics=trans_metrics, start=start, end=end,
+#                    dims=trans_dimensions, segment=segment, token=token,
+#                    filters=fltr)
+#trans = ga.to_df(trans)
+#
+## Raw data
+#trans.to_csv('RawData\\GADataTrans' + time_period + '.csv')
+#print(trans.head(1).T)
+#
+## Amended data
+#trans.columns = trans_ga_cols
+#trans['count'] = pd.to_numeric(trans['count'])
+#trans['cell'] = trans['cell'].replace(exp_codes)
+#trans = trans.set_index('id')
+#trans.to_csv('AmendedData\\GADataTrans' + time_period + '.csv')
 
-trans = ga.get_data(gaid=gaid, metrics=trans_metrics, start=start, end=end,
-                    dims=trans_dimensions, segment=segment, token=token,
-                    filters=fltr)
-trans = ga.to_df(trans)
+num_sheets = (pd.Timestamp(end) - pd.Timestamp(start)).days
+fp = 'RawData\\2020-05 CRO55 lower sampling ID list.xlsx'
 
-# Raw data
-trans.to_csv('RawData\\GADataTrans' + time_period + '.csv')
-print(trans.head(1).T)
+exp_trans_ids = pd.DataFrame(columns=['id', 'cell', 'count'])
+for i in range(1, num_sheets+2):
+    df = pd.read_excel(fp, sheet_name=i, skiprows=14)
+    df = df[['Transaction ID', 'Experiment ID with Variant',
+             'Unique Purchases']]
+    df.columns = exp_trans_ids.columns
+    exp_trans_ids = exp_trans_ids.append(df, ignore_index=True)
 
-# Amended data
-trans.columns = trans_ga_cols
-trans['count'] = pd.to_numeric(trans['count'])
-trans['cell'] = trans['cell'].replace(exp_codes)
-trans = trans.set_index('id')
-trans.to_csv('AmendedData\\GADataTrans' + time_period + '.csv')
+exp_trans_ids['count'] = pd.to_numeric(exp_trans_ids['count'])
+exp_trans_ids['cell'] = exp_trans_ids['cell'].replace(exp_codes)
+exp_trans_ids = exp_trans_ids.set_index('id')
+exp_trans_ids.to_csv('AmendedData\\GADataTrans' + time_period + '.csv')

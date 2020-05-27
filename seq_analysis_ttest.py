@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 import pandas as pd
 
-titledict = {'fontsize': 16, 'fontweight': 'bold'}
+titledict = {'fontsize': 16}
 
 target = 1000
 
@@ -63,7 +63,7 @@ for cell in res.keys():
         strdt = dt.strftime('%Y-%m-%d')
         cumu.loc[dt, 'var'] = res[cell]['lbl']['value'].loc[:strdt].var(ddof=1)
         cumu.loc[dt, 'mean'] = res[cell]['lbl']['value'].loc[:strdt].mean()
-    cumu.reset_index(drop=True, inplace=True)
+    # cumu.reset_index(drop=True, inplace=True)
     res[cell]['cumu'] = cumu
 
 # Want a data frame with columns n, t, q
@@ -85,7 +85,7 @@ t_score.dropna(inplace=True)  # in case first row is NA from not enough gifts
 
 # plot against boundaries
 axt.plot(t_score['q'], t_score['t'], color='#000000', marker='o')
-plt.title('CRO55 raised prompt test', fontsize=16)
+plt.title('CRO55 raised prompt test_average gift', fontsize=16)
 plt.xlabel('% recruited')
 plt.ylabel('t-score')
 axt.xaxis.set_major_formatter(mtick.PercentFormatter(xmax=1))
@@ -94,6 +94,7 @@ figt.text(0, -0.05, test_descrip, color='gray', fontsize=10)
 ldm_fp = 'Outputs\\Results_Target' + str(target) + '_ttest.png'
 axt.set_ylim((-8, 8))
 axt.set_xlim((0, 1))
+plt.tight_layout()
 plt.savefig(ldm_fp)
 plt.show()
 
