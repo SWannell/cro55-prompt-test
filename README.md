@@ -29,6 +29,8 @@ The t-statistic and information quotient formulae are on p9 of [2]. The classic 
 ![t_k = \frac{\bar{x}_{1k}-\bar{x}_{2k}}{\sqrt{\frac{s^2_{1k}}{n_{1k}}+\frac{s^2_{2k}}{n_{2k}}}}](https://render.githubusercontent.com/render/math?math=t_k%20%3D%20%5Cfrac%7B%5Cbar%7Bx%7D_%7B1k%7D-%5Cbar%7Bx%7D_%7B2k%7D%7D%7B%5Csqrt%7B%5Cfrac%7Bs%5E2_%7B1k%7D%7D%7Bn_%7B1k%7D%7D%2B%5Cfrac%7Bs%5E2_%7B2k%7D%7D%7Bn_%7B2k%7D%7D%7D%7D)
 
 ![I_k = \frac{1}{\frac{s^2_{1k}}{n_{1k}}+\frac{s^2_{2k}}{n_{2k}}}](https://render.githubusercontent.com/render/math?math=I_k%20%3D%20%5Cfrac%7B1%7D%7B%5Cfrac%7Bs%5E2_%7B1k%7D%7D%7Bn_%7B1k%7D%7D%2B%5Cfrac%7Bs%5E2_%7B2k%7D%7D%7Bn_%7B2k%7D%7D%7D)
+![I^*_K = \frac{1}{\frac{\sigma^2_{1K}}{n_{1K}}+\frac{\sigma^2_{2K}}{n_{2K}}}](https://render.githubusercontent.com/render/math?math=I%5E*_K%20%3D%20%5Cfrac%7B1%7D%7B%5Cfrac%7B%5Csigma%5E2_%7B1K%7D%7D%7Bn_%7B1K%7D%7D%2B%5Cfrac%7B%5Csigma%5E2_%7B2K%7D%7D%7Bn_%7B2K%7D%7D%7D)
+![p_k = \frac{I_k}{I^*_K}](https://render.githubusercontent.com/render/math?math=p_k%20%3D%20%5Cfrac%7BI_k%7D%7BI%5E*_K%7D)
 
 One main difference between the t- and z- approach to group sequential design, is that the information quotient for the t-statistic version is not dependent on the target.
 
