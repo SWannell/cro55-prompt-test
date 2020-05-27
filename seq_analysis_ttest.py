@@ -15,12 +15,6 @@ titledict = {'fontsize': 16, 'fontweight': 'bold'}
 
 target = 1000
 
-target_desc = pd.read_csv('AmendedData\\in_target_group_describe.csv',
-                          index_col=0)
-target_var = (target_desc.loc['std', 'value'] ** 2)
-cell_target = target // 2
-total_info = 1 / (2 * target_var/cell_target)
-
 # =============================================================================
 # Lan-DeMets spending function with OBF boundaries, t-test
 # =============================================================================
@@ -74,7 +68,7 @@ for cell in res.keys():
 
 # Want a data frame with columns n, t, q
 t_score = pd.DataFrame(index=res['ctrl']['cumu'].index,
-                       columns=['n', 't', 'stage_q'])
+                       columns=['n', 't', 'q'])
 
 t_score['n'] = res['ctrl']['cumu']['n'] + res['test']['cumu']['n']
 
@@ -85,15 +79,12 @@ t_denom2 = res['ctrl']['cumu']['var']/res['ctrl']['cumu']['n']
 t_denom = (t_denom1+t_denom2) ** 0.5
 t_score['t'] = t_num / t_denom
 
-t_score['stage_q'] = 1 / (t_denom1 + t_denom2)
-t_score['info_q'] = t_score['stage_q'] / total_info
-t_score['z_q'] = t_score['n'] / target
+t_score['q'] = t_score['n'] / target
 
 t_score.dropna(inplace=True)  # in case first row is NA from not enough gifts
 
 # plot against boundaries
-axt.plot(t_score['info_q'], t_score['t'], color='#000000', marker='o', label='var')
-axt.plot(t_score['z_q'], t_score['t'], color='#ffffff', marker='o', label='n')
+axt.plot(t_score['q'], t_score['t'], color='#000000', marker='o')
 plt.title('CRO55 raised prompt test', fontsize=16)
 plt.xlabel('% recruited')
 plt.ylabel('t-score')

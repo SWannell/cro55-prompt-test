@@ -181,3 +181,10 @@ axseg.set_title('Gift values for UK GFR {}'.format(segment))
 axseg.xaxis.set_major_formatter(currfmt)
 seg_strip = "".join(segment.split(" "))
 plt.savefig('Outputs\\ukgfr_gift_values_{}.png'.format(seg_strip))
+
+# =============================================================================
+# For information quotient for t-test
+# =============================================================================
+
+email_and_cpc = sglbl[sglbl['medium'].isin(['cpc', 'Email'])]
+email_and_cpc.describe().to_csv('AmendedData\\in_target_group_describe.csv')

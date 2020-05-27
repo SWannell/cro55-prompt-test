@@ -8,7 +8,7 @@ Created on Tue Mar  3 15:21:45 2020
 import pandas as pd
 
 start_date = '20200520'
-end_date = '20200521'  # would be grab start/end dates from a log file?
+end_date = '20200525'  # would be grab start/end dates from a log file?
 
 # Set file paths
 trans_fp = 'AmendedData\\GADataTrans{}-{}.csv'.format(start_date, end_date)
