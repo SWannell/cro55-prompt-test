@@ -12,8 +12,8 @@ N.B. the previous approach of getting transaction IDs from GA led to too much sa
 
 1. Get the LBL data from the web reporting database
 2. _lbl_munge.py_: change path for the new LBL CSV if needed, run
-3. Add new dates into [the less-sampled transaction ID sheet](https://docs.google.com/spreadsheets/d/10M-glXPJoNxjO2fNPybhvqE3AR0FUWh7u2Zsdp-hCtM/edit#gid=395427764)
-4. _FetchData.py__: run, with GA access token
+3. Add new dates into [the less-sampled transaction ID sheet](https://docs.google.com/spreadsheets/d/10M-glXPJoNxjO2fNPybhvqE3AR0FUWh7u2Zsdp-hCtM/edit#gid=395427764). Download to RawData.
+4. _FetchData.py_: run, with GA access token
 5. _lbl_ga_join.py_: change end date, run
 6. _DoSeqAnalysis.py_ for the conversion % check
 7. _seq_analysis_ttest.py_ for the average gift check
