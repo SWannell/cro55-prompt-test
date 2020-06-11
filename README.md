@@ -18,6 +18,12 @@ N.B. the previous approach of getting transaction IDs from GA led to too much sa
 6. _DoSeqAnalysis.py_ for the conversion % check
 7. _seq_analysis_ttest.py_ for the average gift check
 
+### Results
+
+- _gift_distibution.py_: looking at the gift value distribution.
+- _guardrail_checks.py_: looking at the guardrail metrics (Gift Aid, email opt-in).
+- _income_projections.py_: projecting income out to a one-year estimate, as per the analysis plan.
+
 ### t-test alpha spending function
 
 One approach is to calculate a z-score directly from the data (cf. [1]).

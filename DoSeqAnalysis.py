@@ -13,10 +13,9 @@ target = 1000
 ttl = 'CR055 raised prompt test_conversion %'
 
 seq = seqan(target, ttl)  # returns the plot!!
-seq.z_score
-# seq.cvr_plot(ttl)
+seq.cvr_plot(ttl)
 seq.crossed()
 seq.summary()
 
-#print(seq.z_score)
-#print(seq.results)
+# print(seq.z_score)
+# print(seq.results)

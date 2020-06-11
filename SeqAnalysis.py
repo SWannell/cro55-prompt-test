@@ -163,7 +163,7 @@ class SeqAnalysis:
                             alpha=0.3)
         self.daily_results = daily
         self.axcvr.yaxis.set_major_formatter(mtick.PercentFormatter(xmax=1))
-        self.axcvr.set_ylabel('Opt-in clicks / Form users')
+        self.axcvr.set_ylabel('Form completion users / Landing users')
         self.axcvr.set_title(ttl + '\nconversion %', fontdict=self._titledict_)
         for label in self.axcvr.get_xticklabels():
             label.set_rotation(30)
@@ -208,9 +208,9 @@ class SeqAnalysis:
         pct_uplift = (self.results['test']['final_ctr'] /
                       self.results['ctrl']['final_ctr'])-1
         print("the test statistic is z= {:.2f}".format(current_z),
-              ", p = {:.2f}".format(norm.cdf(current_z)), '\n',
+              ", p = {:.2f}".format(1 - norm.cdf(current_z)), '\n',
               'the relative % change is ', "%.0f%%" % (pct_uplift*100))
-        
+
 
 # Tests
 if __name__ == "__main__":
